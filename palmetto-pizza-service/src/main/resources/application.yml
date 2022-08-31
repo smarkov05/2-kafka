@@ -1,0 +1,33 @@
+server:
+  port: 8002
+
+topics:
+  consuming:
+    fetch-pizza-orders: pizza.order.topic
+  producing:
+    change-order-status-notification: pizza.notification.topic
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:29092,localhost:29093,localhost:29094
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+      retries: 5
+    consumer:
+      enable-auto-commit: false
+      group-id: palmetto-pizza-cafe-service
+      max-poll-records: 5
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      concurrency: 3
+      type: batch
+      ack-mode: MANUAL_IMMEDIATE
+  task:
+    execution:
+      pool:
+        core-size: 3
+        max-size: 6

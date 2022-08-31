@@ -1,0 +1,2 @@
+kafka-topics --bootstrap-server localhost:29092 --create --topic pizza.pizzaOrder.topic --partitions 3 --replication-factor 3
+kafka-topics --bootstrap-server localhost:29092 --create --topic pizza.notification.topic --partitions 3 --replication-factor 3

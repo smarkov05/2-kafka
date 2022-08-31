@@ -1,0 +1,23 @@
+server:
+  port: 8003
+
+topics:
+  consuming:
+    fetch-orders-ready: pizza.notification.topic
+  producing:
+    send-delivery-notification: pizza.notification.topic
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:29092,localhost:29093,localhost:29094
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+      retries: 5
+    consumer:
+      group-id: glovo-delivery-service
+    listener:
+      type: batch
+      ack-mode: MANUAL_IMMEDIATE
+      concurrency: 3
